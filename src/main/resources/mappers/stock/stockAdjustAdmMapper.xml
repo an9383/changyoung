@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.stockAdjustAdmMapper">
+
+	<!-- 초기/재고조정 등록 -->
+	<insert id="stockAdjustAdmIns" statementType="CALLABLE" parameterType="StockAdjustAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmIUD(
+				'insert',
+				#{saNo},
+				#{saSeq},
+				#{saGubun},
+				#{saCd},
+				#{saCmptQty},
+				#{saRealQty},
+				#{saDiffQty},
+				#{saLotNo},
+				#{saAppdDate},
+				#{saAppdYn},
+				#{saType},
+				#{saWhsGubun},
+				#{saWhsIdx},
+				#{saLocIdx},
+				#{saDesc},
+				#{saEtc1},
+				#{saEtc2},
+				#{saEtc3},
+				#{insertJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+
+	<!-- 초기/재고조정 수정 -->
+	<update id="stockAdjustAdmUpd" statementType="CALLABLE" parameterType="StockAdjustAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmIUD(
+				'update',
+				#{saNo},
+				#{saSeq},
+				#{saGubun},
+				#{saCd},
+				#{saCmptQty},
+				#{saRealQty},
+				#{saDiffQty},
+				#{saLotNo},
+				#{saAppdDate},
+				#{saAppdYn},
+				#{saType},
+				#{saWhsGubun},
+				#{saWhsIdx},
+				#{saLocIdx},
+				#{saDesc},
+				#{saEtc1},
+				#{saEtc2},
+				#{saEtc3},
+				#{insertJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 초기/재고조정 삭제 -->
+	<delete id="stockAdjustAdmDel" statementType="CALLABLE" parameterType="StockAdjustAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmIUD(
+				'delete',
+				#{saNo},
+				#{saSeq},
+				#{saGubun},
+				#{saCd},
+				#{saCmptQty},
+				#{saRealQty},
+				#{saDiffQty},
+				#{saLotNo},
+				#{saAppdDate},
+				#{saAppdYn},
+				#{saType},
+				#{saWhsGubun},
+				#{saWhsIdx},
+				#{saLocIdx},
+				#{saDesc},
+				#{saEtc1},
+				#{saEtc2},
+				#{saEtc3},
+				#{insertJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 초기/재고조정 전표번호 조회-->
+	<select id="getSaNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmGetSaNo(
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 초기/재고조정 목록 조회 -->
+	<select id="stockAdjustAdmListBySaNo" resultType="StockAdjustAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmListBySaNo(
+				#{saNo}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 초기/재고조정 목록 조회 -->
+	<select id="stockAdjustAdmListGroupBySaNo" resultType="StockAdjustAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockAdjustAdmListGroupBySaNo(
+				#{startDate},
+				#{endDate},
+				#{saType}
+			)
+		}
+		]]>
+	</select>
+
+</mapper>

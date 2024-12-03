@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.prcssInfoMapper">
+	
+	<!-- 공정정보 목록조회 -->
+	<select id="prcssListAll" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInfoLst(
+			)
+		}
+		]]>
+	</select>
+	
+	<!--상세 목록 조회 -->
+	<select id="prcssInfoSel" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInfoSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정코드 중복확인 -->
+	<select id="prcssCdDupCheck" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssCdDupCheck(
+				#{idx},
+				#{prcssCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정정보 등록 -->
+	<insert id="prcssInsert" statementType="CALLABLE" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInfoIUD(
+				'insert',
+				#{idx},
+				#{prcssCd},
+				#{prcssNm},
+				#{qtyUnit},
+				#{initial},
+				#{prcssDesc},
+				#{produceQtyUnit},
+				#{stockOption},
+				#{prcssGroupCd},
+				#{firstPrcssYn},
+				#{cutYn},
+				#{woodenUseYn},
+				#{crUseYn},
+				#{uvUseYn},
+				#{resultPageNm},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resultMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정정보 순서 수정 -->
+	<update id="prcssOrdUpdate" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssOrdUpdate(
+				#{updateList},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 공정정보 수정 -->
+	<insert id="prcssUpdate" statementType="CALLABLE" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInfoIUD(
+				'update',
+				#{idx},
+				#{prcssCd},
+				#{prcssNm},
+				#{qtyUnit},
+				#{initial},
+				#{prcssDesc},
+				#{produceQtyUnit},
+				#{stockOption},
+				#{prcssGroupCd},
+				#{firstPrcssYn},
+				#{cutYn},
+				#{woodenUseYn},
+				#{crUseYn},
+				#{uvUseYn},
+				#{resultPageNm},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resultMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정정보 삭제 -->
+	<delete id="prcssDelete" statementType="CALLABLE" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInfoIUD(
+				'delete',
+				#{idx},
+				#{prcssCd},
+				#{prcssNm},
+				#{qtyUnit},
+				#{initial},
+				#{prcssDesc},
+				#{produceQtyUnit},
+				#{stockOption},
+				#{prcssGroupCd},
+				#{firstPrcssYn},
+				#{cutYn},
+				#{woodenUseYn},
+				#{crUseYn},
+				#{uvUseYn},
+				#{resultPageNm},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resultMessage, mode=OUT, jdbcType=VARCHAR}
+				
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 공정작업자 목록조회 -->
+	<select id="prcssWorkerListAll" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssWorkerInfoLst(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정작업자 삭제 -->
+	<delete id="prcssWorkerDelete" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssWorkerDel(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 공정작업자 등록 -->
+	<insert id="prcssWorkerInsert" parameterType="PrcssInfoVo">
+		<![CDATA[		
+		{
+			call sp_bm_prcssWorkerIns(		
+				#{insertJson},
+				#{regIdx},
+				#{regDate}	
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 설비 목록조회 -->
+	<select id="prcssEquipListAll" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssEquipInfoLst(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비 삭제 -->
+	<delete id="prcssEquipDelete" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssEquipDel(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 설비 등록 -->
+	<insert id="prcssEquipInsert" parameterType="PrcssInfoVo">
+		<![CDATA[		
+		{
+			call sp_bm_prcssEquipIns(		
+				#{insertJson},
+				#{regIdx},
+				#{regDate}	
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 작업방식 목록조회 -->
+	<select id="prcssWorkMethodListAll" resultType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssWorkMethodListAll(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업방식 삭제 -->
+	<delete id="prcssWorkMethodDelete" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssWorkMethodDel(
+				#{idx},
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 작업방식 등록 -->
+	<insert id="prcssWorkMethodInsert" parameterType="PrcssInfoVo">
+		<![CDATA[		
+		{
+			call sp_bm_prcssWorkMethodIns(		
+				#{insertJson},
+				#{regIdx},
+				#{regDate}	
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 점검항목 조회 -->
+	<select id="prcssInspectionMethodListAll" resultType="PrcssInfoVo">
+		<![CDATA[		
+		{
+			call sp_bm_prcssInspectionMethodListAll(		
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 점검항목 등록 -->
+	<insert id="prcssInspectionMethodInsert" parameterType="PrcssInfoVo">
+		<![CDATA[		
+		{
+			call sp_bm_prcssInspectionMethodInsert(
+				#{prcssIdx},		
+				#{insertJson},
+				#{regIdx},
+				#{regDate}	
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 점검항목 삭제 -->
+	<delete id="prcssInspectionMethodDelete" parameterType="PrcssInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssInspectionMethodDelete(
+				#{idx}
+			)
+		}
+		]]>
+	</delete>
+	
+</mapper>

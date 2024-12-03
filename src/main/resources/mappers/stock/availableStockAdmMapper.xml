@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.availableStockAdmMapper">
+
+	<!-- 가용재고 등록 -->
+	<insert id="availableStockAdmIns" parameterType="AvailableStockAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_availableStockAdmIUD(
+				'insert',
+				#{asIdx},   
+				#{endDate},  
+				#{asQty},    
+				#{regIdx},   
+				#{regDate},
+				#{jsonArray}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 메인 목록조회 -->
+	<select id="availableStockPurchaseLst" resultType="AvailableStockAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_availableStockPurchaseLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.menuAuthMapper">
+	
+	<!-- 메뉴권한관리 목록조회 -->
+	<select id="menuAuthLstByUserIdx" resultType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthLstByUserIdx(
+				#{userIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴권한관리 메뉴목록조회 리스트 -->
+	<select id="menuAuthLstForMenuList" resultType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthLstForMenuList(
+				#{userIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴권한관리 등록 -->
+	<insert id="menuAuthIns" parameterType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthIns(
+				#{insertList},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴권한관리 수정 -->
+	<update id="menuAuthUpd" parameterType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthUpd(
+				#{idx},
+				#{userIdx},
+				#{menuIdx},
+				#{favoriteYn},
+				#{createAuth},
+				#{readAuth},
+				#{updateAuth},
+				#{deleteAuth},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 메뉴권한관리 삭제 -->
+	<delete id="menuAuthDel" parameterType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthDel(
+				#{userIdx}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 메뉴권한관리 복사 -->
+	<insert id="menuAuthCopyNPaste" parameterType="MenuAuthVo">
+		<![CDATA[
+		{
+			call sp_sm_menuAuthCopyNPaste(
+				#{copyIdx},
+				#{pasteIdx},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+</mapper>

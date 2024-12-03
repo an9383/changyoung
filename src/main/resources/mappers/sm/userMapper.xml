@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.userMapper">
+	
+	<!-- 사용자정보 목록조회 -->
+	<select id="userLst" resultType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userLst(
+				#{userStateCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 사용자 상세조회 -->
+	<select id="userSel" resultType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userSel(
+				#{idx},
+				#{userId}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 사용자정보 등록 -->
+	<insert id="userIns" parameterType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userIUD(
+				'insert',
+				#{idx},
+				#{userName},
+				#{userId},
+				#{userPw},
+				#{userEmail},
+				#{userTeam},
+				#{userDepartmentCd},
+				#{userJobCd},
+				#{userPositionCd},
+				#{userStateCd},
+				#{userJoinDate},
+				#{userLeaveDate},
+				#{userAdmin},
+				#{userSign},
+				#{userSignImage},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 사용자정보 수정 -->
+	<update id="userUpd" parameterType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userIUD(
+				'update',
+				#{idx},
+				#{userName},
+				#{userId},
+				#{userPw},
+				#{userEmail},
+				#{userTeam},
+				#{userDepartmentCd},
+				#{userJobCd},
+				#{userPositionCd},
+				#{userStateCd},
+				#{userJoinDate},
+				#{userLeaveDate},
+				#{userAdmin},
+				#{userSign},
+				#{userSignImage},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 사용자정보 삭제 -->
+	<delete id="userDel" parameterType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userIUD(
+				'delete',
+				#{idx},
+				#{userName},
+				#{userId},
+				#{userPw},
+				#{userEmail},
+				#{userTeam},
+				#{userDepartmentCd},
+				#{userJobCd},
+				#{userPositionCd},
+				#{userStateCd},
+				#{userJoinDate},
+				#{userLeaveDate},
+				#{userAdmin},
+				#{userSign},
+				#{userSignImage},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 사용자 ID 중복확인 -->
+	<select id="userIdDupCheck" resultType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userIdDupCheck(
+				#{idx},
+				#{userId}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 사용자 ADMIN 권한있는 사용자 인원수 확인 -->
+	<select id="userAdminExsitCheck" resultType="UserVo">
+		<![CDATA[
+		{
+			call sp_sm_userAdminExsitCheck(
+				#{idx},
+				#{userAdmin}
+			)
+		}
+		]]>
+	</select>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.mt.monitoringMapper">
+
+	<!-- 수주생산진행현황 -->
+	<select id="bizOrdWorkCurrentSituation" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_bizOrdWorkCurrentSituation(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주생산공정진행현황 -->
+	<select id="bizOrdWorkPrcssCurrentSituation" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_bizOrdWorkPrcssCurrentSituation(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주출하리드타임 -->
+	<select id="bizOrdOutLeadTime" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_bizOrdOutLeadTime(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 불량률 현황 - 년/월별 전체 합계 -->
+	<select id="defectiveRateAdmLst" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_defectiveRateAdmLst(
+				#{startDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 불량률 현황 - 년도의 제품별 조회 -->
+	<select id="defectiveRateItemDtlLst" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_defectiveRateItemDtlLst(
+				#{startDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 생산공정진행현황 -->
+	<select id="prcssProgressStatusLst" resultType="MonitoringVo">
+		<![CDATA[
+		{
+			call sp_mt_prcssProgressStatusLst(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

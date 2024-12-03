@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.matrlInfoMapper">
+	
+	<!-- 자재 목록조회 -->
+	<select id="matrlInfoListAll" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoLst(
+				#{baseDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 재질 중복체크 -->
+	<select id="paperTypeDupCheck" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_paperTypeDupCheck(
+				#{idx},
+				#{paperType}
+			)
+		}
+		]]>
+	</select>
+	
+	
+	<!--상세 목록 조회 -->
+	<select id="matrlInfoSel" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품번 중복확인 -->
+	<select id="matrlInfoDupCheck" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoDupCheck(
+				#{idx},
+				#{matrlCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 등록 -->
+	<insert id="matrlInfoInsert" statementType="CALLABLE" parameterType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoIUD(
+				'insert',
+				#{idx},
+				#{dealCorpIdx},
+				#{itemGubun}, 	
+				#{matrlCd}, 		
+				#{paperType}, 	
+				#{sizeX}, 		
+				#{sizeY}, 		
+				#{extraStock}, 	
+				#{matrlNote}, 	
+				#{useYn}, 	
+				#{etc1},  	
+				#{etc2}, 	
+				#{etc3}, 	
+				#{etc4},	
+				#{etc5},  	
+				#{etc6}, 	
+				#{etc7}, 	
+				#{etc8},	
+				#{pageGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMes, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목정보관리 수정 -->
+	<update id="matrlInfoUpdate" statementType="CALLABLE" parameterType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoIUD(
+				'update',
+				#{idx},
+				#{dealCorpIdx},
+				#{itemGubun}, 	
+				#{matrlCd}, 		
+				#{paperType}, 	
+				#{sizeX}, 		
+				#{sizeY}, 		
+				#{extraStock}, 	
+				#{matrlNote}, 	
+				#{useYn}, 	
+				#{etc1},  	
+				#{etc2}, 	
+				#{etc3}, 	
+				#{etc4},	
+				#{etc5},  	
+				#{etc6}, 	
+				#{etc7}, 	
+				#{etc8},	
+				#{pageGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMes, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 품목정보관리 다중 수정 -->
+	<update id="matrlInfoMultiUpdate" statementType="CALLABLE" parameterType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoIUD(
+				'multiUpdate',
+				#{idx},
+				#{dealCorpIdx},
+				#{itemGubun}, 	
+				#{matrlCd}, 		
+				#{paperType}, 	
+				#{sizeX}, 		
+				#{sizeY}, 		
+				#{extraStock}, 	
+				#{matrlNote}, 	
+				#{useYn}, 	
+				#{etc1},  	
+				#{etc2}, 	
+				#{etc3}, 	
+				#{etc4},	
+				#{etc5},  	
+				#{etc6}, 	
+				#{etc7}, 	
+				#{etc8},	
+				#{pageGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMes, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 품목정보관리 순번 수정 -->
+	<update id="matrlInfoOrdUpdate" parameterType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoOrdUpdate(
+				#{updateList},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 품목정보관리 삭제 -->
+	<delete id="matrlInfoDelete" statementType="CALLABLE" parameterType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoIUD(
+				'delete',
+				#{idx},
+				#{dealCorpIdx},
+				#{itemGubun}, 	
+				#{matrlCd}, 		
+				#{paperType}, 	
+				#{sizeX}, 		
+				#{sizeY}, 		
+				#{extraStock}, 	
+				#{matrlNote}, 	
+				#{useYn}, 	
+				#{etc1},  	
+				#{etc2}, 	
+				#{etc3}, 	
+				#{etc4},	
+				#{etc5},  	
+				#{etc6}, 	
+				#{etc7}, 	
+				#{etc8},	
+				#{pageGubun},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMes, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- ================================= 수주별발주 ===================================== -->
+	<!-- 자재목록조회 BOM포함/미포함 -->
+	<select id="matrlInfoLstByItemBom" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoLstByItemBom(
+				#{itemIdx},
+				#{matrlSelectGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ================================= 개별발주 ===================================== -->
+	<!-- 수주수량 포함 자재목록조회 -->
+	<select id="matrlInfoLstWithBiz" resultType="MatrlInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_matrlInfoLstWithBiz(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+</mapper>

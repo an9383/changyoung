@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.systemAccessLogMapper">
+
+	<!-- 시스템 접속기록 목록조회 -->
+	<select id="systemAccessLogLst" resultType="SystemAccessLogVo">
+		<![CDATA[
+		{
+			call sp_sm_systemAccessLogLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 시스템 접속기록 등록 -->
+	<insert id="systemAccessLogIns" parameterType="SystemAccessLogVo">
+		<![CDATA[
+		{
+			call sp_sm_systemAccessLogIns(
+				#{userIdx},
+				#{userId},
+				#{userNm},
+				#{userPositionNm},
+				#{userDepartmentNm},
+				#{accessMenuNm},
+				#{accessUrl},
+				#{accessIp},
+				#{accessDate}
+			)
+		}
+		]]>
+	</insert>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.itemPrcssRoutingMapper">
+
+	<!-- 공정라우팅 목록조회 -->
+	<select id="itemPrcssRoutingListAll" resultType="ItemPrcssRoutingVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingLst(
+			)
+		}
+		]]>
+	</select>
+	
+	<!--공정라우팅 상세 목록 조회 -->
+	<select id="itemPrcssRoutingSel" resultType="ItemPrcssRoutingVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingSel(
+				#{routingNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정라우팅번호 중복확인 -->
+	<select id="itemPrcssRoutingNoDupCheck" resultType="int">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingNoDupCheck(
+				#{routingNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정정보 등록 -->
+	<insert id="itemPrcssRoutingInsert" parameterType="ItemPrcssRoutingVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingIUD(
+				'insert',
+				#{idx},
+				#{routingNo},
+				#{delGubun},
+				#{insertList},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정정보 수정 -->
+	<insert id="itemPrcssRoutingUpdate" statementType="CALLABLE" parameterType="ItemPrcssRoutingVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingIUD(
+				'update',
+				#{idx},
+				#{routingNo},
+				#{delGubun},
+				#{insertList},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정정보 삭제 -->
+	<delete id="itemPrcssRoutingDelete" statementType="CALLABLE" parameterType="ItemPrcssRoutingVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssRoutingIUD(
+				'delete',
+				#{idx},
+				#{routingNo},
+				#{delGubun},
+				#{insertList},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

@@ -1,0 +1,52 @@
+#virtualKeyboardMain {
+	width: 60%;
+	height:35%;
+	position: fixed;
+	bottom:0px;
+	left:20%;
+	padding:1%;
+	margin:0px;
+	display:none;
+	border-radius: 6px;
+	box-shadow : 0 5px 10px rgb(0 0 0 / 20%);
+	font-weight : bolder;
+}
+
+#virtualKeypadMain {
+	width: 20%;
+	height:35%;
+	position: fixed;
+	bottom:0px;
+	left:40%;
+	padding:1%;
+	margin:0px;
+	display:none;
+	border-radius: 6px;
+	box-shadow : 0 5px 10px rgb(0 0 0 / 20%);
+	font-weight : bolder;
+}
+
+.virtualKeyboard_content {
+	z-index: 99999;
+}
+
+.virtualKeypad_content {
+	z-index: 99999;
+}
+
+.virkey {
+	height:100%;
+	background:white;
+	margin:0.2%;
+	border:2px solid gray;
+	font-size: 0.8vw;
+}
+
+.virkey:hover {
+	transform:scaleY(.98) translateY(1px);
+}
+
+.virkey:active {
+	transform:scaleY(.98) translateY(3px);
+	background-color: #0066CC;
+}

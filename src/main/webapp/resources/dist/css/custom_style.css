@@ -1,0 +1,298 @@
+body {
+	font-size: 13px;
+}
+
+th {
+	background-color: #eeeeee !important;
+	font-weight: 900;
+	padding: 5px 5px;
+}
+
+td {
+	padding: 5px 5px;
+}
+
+.header-label {
+	background-color: #eeeeee;
+	padding: 1px 6px;
+	border-radius: 5px;
+	border: 1px solid #dddddd;
+	font-weight: 900;
+}
+
+::placeholder {
+  opacity: 0.4 !important;
+}
+
+
+
+/* page ============================================*/
+#page {
+	height: 100vh;
+	background-color: #ffffff;
+	display: grid;
+}
+
+/* middlecol ============================================*/
+#middlecolT {
+	overflow: auto;
+	grid-area: middlecolT;
+}
+#middlecolM {
+	overflow: auto;
+	grid-area: middlecolM;
+}
+#middlecolB {
+	overflow: auto;
+	grid-area: middlecolB;
+}
+
+/* leftcol ============================================*/
+#leftcol {
+	overflow: auto;
+	grid-area: leftcol;
+}
+#leftcolT {
+	overflow: auto;
+	grid-area: leftcolT;
+}
+#leftcolM {
+	overflow: auto;
+	grid-area: leftcolM;
+}
+#leftcolB {
+	overflow: auto;
+	grid-area: leftcolB;
+}
+
+/* dragbar ============================================*/
+#dragbar {
+	background-color: #cccccc;
+	grid-area: dragbar;
+	cursor: ew-resize;
+}
+#dragbarH {
+	background-color: #cccccc;
+	grid-area: dragbarH;
+	cursor: ew-resize;
+}
+#dragbarV {
+	background-color: #cccccc;
+	grid-area: dragbarV;
+	cursor: n-resize;
+}
+#dragbarVT {
+	background-color: #cccccc;
+	grid-area: dragbarVT;
+	cursor: n-resize;
+}
+#dragbarVB {
+	background-color: #cccccc;
+	grid-area: dragbarVB;
+	cursor: n-resize;
+}
+
+/* rightcol ============================================*/
+#rightcol {
+	overflow: auto;
+	grid-area: rightcol;
+}
+#rightcolT {
+	overflow: auto;
+	grid-area: rightcolT;
+}
+#rightcolM {
+	overflow: auto;
+	grid-area: rightcolM;
+}
+#rightcolB {
+	overflow: auto;
+	grid-area: rightcolB;
+}
+
+
+
+
+
+
+
+/*
+*	sideBar 관련 css
+*/
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #d2f4ea;
+}
+
+.btn-toggle2:hover,
+.btn-toggle2:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #d2f4ea;
+}
+
+.btn-toggle::before {
+  width: 0.5em;
+  line-height: 0;
+  content: url("/resources/assets/vendor/fontawesome/svgs/solid/angle-right.svg");
+  transition: transform .35s ease;
+  margin-right: 5px;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(0, 0, 0, .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: #d2f4ea;
+}
+
+
+
+
+
+
+/* 별 toggle */
+.custom-toggle-star {
+	display: none;
+}
+.custom-toggle-star:checked ~ label {
+	height: 15px;
+	cursor: pointer;
+	content: url('/resources/assets/vendor/fontawesome/svgs/solid/star-yellow.svg');
+}
+ 	
+.custom-toggle-star ~ label {
+	height: 15px;
+	cursor: pointer;
+	content: url('/resources/assets/vendor/fontawesome/svgs/regular/star-yellow.svg');
+}
+
+
+
+
+
+
+/* 스크롤바 css */
+*::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+	background-color: #bbb;
+	border-radius: 5px;
+}
+*::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+
+/*
+	datatable
+*/
+.dataTable th,
+.dataTable td {
+	padding: 5px 5px;
+}
+div.dt-button-collection {
+    max-height: 30vh;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
+
+
+
+
+
+
+
+
+/*
+	bootstrap
+*/
+.btn {
+	font-size: 13px !important;
+}
+
+input {
+	font-size: 13px !important;
+	padding: 1px 6px !important;
+}
+
+select {
+	font-size: 13px !important;
+	padding: 1px 21px 1px 6px!important;
+}
+
+textarea {
+	font-size: 13px !important;
+}
+
+.btn-group .btn-outline-light {
+	padding: 0 0.9rem !important;
+	border: 1px solid #bbbbbb;
+	height: 32px;
+}
+
+.btn-group .btn-outline-light:disabled {
+	border: 1px solid #bbbbbb;
+	opacity: 1;
+	height: 32px;
+}
+
+.btn-group .btn-outline-danger {
+	padding: 0 0.9rem !important;
+	border: 1px solid #bbbbbb;
+	height: 32px;
+}
+
+.btn-group .btn-outline-danger:disabled {
+	border: 1px solid #bbbbbb;
+	opacity: 1;
+	height: 32px;
+}
+
+
+
+
+/* .table-bordered .datatable {
+  border: 1px solid #dee2e6;
+} */
+.table-bordered th,
+.table-bordered td {
+	border: 1px solid #dee2e6;
+	border-bottom-width: 0px;
+	
+}
+
+div .div-align-center{
+	display: flex;
+	justify-content: center;
+}
+
+/* 볼드체와 패딩이 없으며 일반td보단 진한 텍스트 */
+.plainTextBgGray{
+	background-color: #BBBBBB !important;
+	font-weight: 400!important;
+	padding: 0px!important;
+}
+.plainText{
+	font-weight: 400!important;
+	padding: 0px!important;
+}

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.woodenInfoMapper">
+	
+	<!-- =========================== 목형정보관리 기본정보 ========================================== -->
+	<!-- 목형정보관리 기본정보 목록조회 -->
+	<select id="woodenInfoAdmLst" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmLst(
+				#{useYn},
+				#{expendGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 목형정보관리 목록조회 - 사이즈 코팅 성형방식 일치하는 목록 -->
+	<select id="woodenInfoAdmLstWithSizeCoatingMolding" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmLstWithSizeCoatingMolding(
+				#{wdSize},
+				#{coating},
+				#{moldingContents},
+				#{moldingContentsReal},
+				#{wdUnit}
+				
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 목형정보관리 기본정보 상세조회 -->
+	<select id="woodenInfoAdmSel" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 목형정보관리 기본정보 등록 -->
+	<insert id="woodenInfoAdmIns" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmIUD(
+				'insert',
+				#{idx},
+				#{expendGubun},
+				#{wdGubun},
+				#{wdCd},
+				#{wdSize},
+				#{useYn},
+				#{coating},
+				#{moldingContents},
+				#{exEndDate},
+				#{location},
+				#{inputDate},
+				#{baseHitQty},
+				#{initHitQty},
+				#{wdDesc},
+				#{wdUnit},
+				#{moldingContentsReal},
+				#{afterProcessing},
+				#{afterProcessingWdUnit},
+				#{bundleMethod},	
+				#{bundleUnit},
+				#{packUnit},
+				#{packMethod},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_WOODEN_INFO_ADM')
+		</selectKey>
+	</insert>
+	
+	<!-- 목형정보관리 기본정보 수정 -->
+	<update id="woodenInfoAdmUpd" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmIUD(
+				'update',
+				#{idx},
+				#{expendGubun},
+				#{wdGubun},
+				#{wdCd},
+				#{wdSize},
+				#{useYn},
+				#{coating},
+				#{moldingContents},
+				#{exEndDate},
+				#{location},
+				#{inputDate},
+				#{baseHitQty},
+				#{initHitQty},
+				#{wdDesc},
+				#{wdUnit},
+				#{moldingContentsReal},
+				#{afterProcessing},
+				#{afterProcessingWdUnit},
+				#{bundleMethod},	
+				#{bundleUnit},
+				#{packUnit},
+				#{packMethod},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 목형정보관리 기본정보 삭제 -->
+	<delete id="woodenInfoAdmDel" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmIUD(
+				'delete',
+				#{idx},
+				#{expendGubun},
+				#{wdGubun},
+				#{wdCd},
+				#{wdSize},
+				#{useYn},
+				#{coating},
+				#{moldingContents},
+				#{exEndDate},
+				#{location},
+				#{inputDate},
+				#{baseHitQty},
+				#{initHitQty},
+				#{wdDesc},
+				#{wdUnit},
+				#{moldingContentsReal},
+				#{afterProcessing},
+				#{afterProcessingWdUnit},
+				#{bundleMethod},	
+				#{bundleUnit},
+				#{packUnit},
+				#{packMethod},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 목형정보관리 기본정보 목형코드 중복확인 -->
+	<select id="woodenInfoAdmIdDupCheck" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoAdmWdCdDupCheck(
+				#{idx},
+				#{wdCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 목형정보관리 사용이력 ========================================== -->
+	<!-- 목형정보관리 사용이력 목록조회 -->
+	<select id="woodenInfoLogLst" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoLogLst(
+				#{wdIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 목형정보관리 사용이력 상세조회 -->
+	<select id="woodenInfoLogSel" resultType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoLogSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 목형정보관리 사용이력 등록 -->
+	<insert id="woodenInfoLogIns" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoLogIUD(
+				'insert',
+				#{idx},
+				#{wdIdx},
+				#{wdGubun},
+				#{baseHitQty},
+				#{initHitQty},
+				#{useHitQty},
+				#{calHitQty},
+				#{remainHitQty},
+				#{wdDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 목형정보관리 사용이력 등록 -->
+	<insert id="prcssUseWoodenLogIns" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_prcssUseWoodenLogIUD(
+				'insert',
+				#{idx},
+				#{wdIdx},
+				#{workOrdResultIdx},
+				#{useQty},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 목형정보관리 사용이력 수정 -->
+	<update id="woodenInfoLogUpd" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoLogIUD(
+				'update',
+				#{idx},
+				#{wdIdx},
+				#{wdGubun},
+				#{baseHitQty},
+				#{initHitQty},
+				#{useHitQty},
+				#{calHitQty},
+				#{remainHitQty},
+				#{wdDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 목형정보관리 사용이력 삭제 -->
+	<delete id="woodenInfoLogDel" parameterType="WoodenInfoVo">
+		<![CDATA[
+		{
+			call sp_bm_woodenInfoLogIUD(
+				'delete',
+				#{idx},
+				#{wdIdx},
+				#{wdGubun},
+				#{baseHitQty},
+				#{initHitQty},
+				#{useHitQty},
+				#{calHitQty},
+				#{remainHitQty},
+				#{wdDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

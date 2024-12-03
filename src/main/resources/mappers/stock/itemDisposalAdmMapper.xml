@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.itemDisposalAdmMapper">
+
+	<!-- 제품 재고폐기 조회 -->
+	<select id="itemDisposalAdmLst" resultType="ItemDisposalAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_itemDisposalAdmLst(
+				#{startDate},
+				#{endDate},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 제품 재고폐기 등록 -->
+	<insert id="itemDisposalAdmIns" statementType="CALLABLE" parameterType="ItemDisposalAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_itemDisposalAdmIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{mangerIdx},
+				#{produceMangerIdx},
+				#{itemVerIdx},
+				#{customerItemCd},
+				#{disposalCd},
+				#{disposalQty},
+				#{disposalReason},
+				#{fileUuid},
+				#{fileNm},
+				#{fileExt},
+				#{disposalDate},
+				#{disposalDesc},
+				#{workYn},
+				#{finalCheckYn},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품 재고폐기 수정 -->
+	<update id="itemDisposalAdmUpd" statementType="CALLABLE" parameterType="ItemDisposalAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_itemDisposalAdmIUD(
+				'update',
+				#{idx},
+				#{itemIdx},
+				#{mangerIdx},
+				#{produceMangerIdx},
+				#{itemVerIdx},
+				#{customerItemCd},
+				#{disposalCd},
+				#{disposalQty},
+				#{disposalReason},
+				#{fileUuid},
+				#{fileNm},
+				#{fileExt},
+				#{disposalDate},
+				#{disposalDesc},
+				#{workYn},
+				#{finalCheckYn},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제품 재고폐기 수정 -->
+	<update id="itemDisposalAdmCheckYnUpd" statementType="CALLABLE" parameterType="ItemDisposalAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_itemDisposalAdmIUD(
+				'checkYnUpdate',
+				#{idx},
+				#{itemIdx},
+				#{mangerIdx},
+				#{produceMangerIdx},
+				#{itemVerIdx},
+				#{customerItemCd},
+				#{disposalCd},
+				#{disposalQty},
+				#{disposalReason},
+				#{fileUuid},
+				#{fileNm},
+				#{fileExt},
+				#{disposalDate},
+				#{disposalDesc},
+				#{workYn},
+				#{finalCheckYn},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제품 재고폐기 삭제 -->
+	<update id="itemDisposalAdmDel" statementType="CALLABLE" parameterType="ItemDisposalAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_itemDisposalAdmIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{mangerIdx},
+				#{produceMangerIdx},
+				#{itemVerIdx},
+				#{customerItemCd},
+				#{disposalCd},
+				#{disposalQty},
+				#{disposalReason},
+				#{fileUuid},
+				#{fileNm},
+				#{fileExt},
+				#{disposalDate},
+				#{disposalDesc},
+				#{workYn},
+				#{finalCheckYn},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+</mapper>

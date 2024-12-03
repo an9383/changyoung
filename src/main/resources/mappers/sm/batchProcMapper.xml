@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.batchProcMapper">
+	
+	<!-- 배치 수행 결과 생성 -->
+	<insert id="batchProcLog" parameterType="mes.domain.sm.BatchProcVo">
+		<![CDATA[
+		{
+			call sp_bt_batch_proc_log(
+				#{batchId},
+				#{batchNm},
+				#{batchStartTime},
+				#{batchEndTime},
+				#{successYn},
+				#{batchDesc},
+				'batchAdmin',
+				#{createdAt}
+			)
+		}
+		]]>
+	</insert>
+	
+</mapper>

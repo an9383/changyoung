@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.commonCodeMapper">
+
+	<!-- ====================================== 공통코드관리 ADM ======================================== -->
+	<!-- 공통코드관리 ADM 목록조회 -->
+	<select id="commonCodeAdmLst" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmLst(
+				#{commonType}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공통코드관리 ADM 상세조회 -->
+	<select id="commonCodeAdmSel" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공통코드관리 ADM 등록 -->
+	<insert id="commonCodeAdmIns" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmIUD(
+				'insert',
+				#{idx},
+				#{commonType},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 ADM 수정 -->
+	<insert id="commonCodeAdmUpd" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmIUD(
+				'update',
+				#{idx},
+				#{commonType},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 ADM 삭제 -->
+	<insert id="commonCodeAdmDel" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmIUD(
+				'delete',
+				#{idx},
+				#{commonType},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 ADM 코드 중복확인 -->
+	<select id="commonCodeAdmDupCheck" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeAdmDupCheck(
+				#{idx},
+				#{commonType},
+				#{commonCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ====================================== 공통코드관리 DTL ======================================== -->
+	<!-- 공통코드관리 DTL 목록조회 -->
+	<select id="commonCodeDtlLst" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlLst(
+				#{commonCodeAdmIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공통코드관리 DTL 공통코드별 목록조회 -->
+	<select id="commonCodeDtlLstByCommonCd" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlLstByCommonCd(
+				#{commonType},
+				#{commonCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공통코드관리 DTL 공통코드별 목록조회 -->
+	<select id="commonCodeDtlLstByCommonCdString" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlLstByCommonCdString(
+				#{commonType},
+				#{commonCd}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 공통코드관리 DTL 상세조회 -->
+	<select id="commonCodeDtlSel" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공통코드관리 DTL 등록 -->
+	<insert id="commonCodeDtlIns" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlIUD(
+				'insert',
+				#{idx},
+				#{commonType},
+				#{commonCodeAdmIdx},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 DTL 수정 -->
+	<insert id="commonCodeDtlUpd" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlIUD(
+				'update',
+				#{idx},
+				#{commonType},
+				#{commonCodeAdmIdx},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 DTL 삭제 -->
+	<insert id="commonCodeDtlDel" parameterType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlIUD(
+				'delete',
+				#{idx},
+				#{commonType},
+				#{commonCodeAdmIdx},
+				#{commonCd},
+				#{commonNm},
+				#{useYn},
+				#{attr},
+				#{commonDesc},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공통코드관리 DTL 코드 중복확인 -->
+	<select id="commonCodeDtlDupCheck" resultType="CommonCodeVo">
+		<![CDATA[
+		{
+			call sp_sm_commonCodeDtlDupCheck(
+				#{idx},
+				#{commonCodeAdmIdx},
+				#{commonCd}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

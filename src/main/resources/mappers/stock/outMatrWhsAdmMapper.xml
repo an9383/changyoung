@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.outMatrWhsAdmMapper">
+	
+	<!-- 자재 출고 전표번호 조회 -->
+	<select id="getOutSlipNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_outMatrWhsAdmGetOutSlipNo(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재 출고 전표번호 조회 -->
+	<select id="getOutSlipNoByRelationNo" resultType="OutMatrWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outMatrWhsAdmGetOutSlipNoByRelationNo(
+				#{relationNo},
+				#{outGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 자재 출고  등록 -->
+	<insert id="outMatrWhsAdmIns" parameterType="OutMatrWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outMatrWhsAdmIUD(
+				'insert',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemCd}, 
+				#{preOutQty},
+				#{outQty}, 
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpCd},
+				#{outStatus},
+				#{lotNo},  
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx}, 
+				#{locIdx}, 
+				#{outDesc},
+				#{insertJson},
+				#{regIdx}, 
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 자재 출고  삭제 -->
+	<delete id="outMatrWhsAdmDel" parameterType="OutMatrWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outMatrWhsAdmIUD(
+				'delete',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemCd}, 
+				#{preOutQty},
+				#{outQty}, 
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpCd},
+				#{outStatus},
+				#{lotNo},  
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx}, 
+				#{locIdx}, 
+				#{outDesc},
+				#{insertJson},
+				#{regIdx}, 
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

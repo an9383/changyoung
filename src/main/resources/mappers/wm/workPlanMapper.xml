@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.wm.workPlanMapper">
+
+	<!-- 수주 목록 조회 -->
+	<select id="purchaseOrdLst" resultType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_purchaseOrdLst(
+				#{searchTarget},
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시 목록 조회 -->
+	<select id="workOrdLst" resultType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdLst(
+				#{bodIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시등록 -->
+	<insert id="workOrdIns" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdIUD(
+				'insert',
+				#{workOrdIdx},
+				#{insertList},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 작업지시수정 -->
+	<update id="workOrdUpd" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdIUD(
+				'update',
+				#{workOrdIdx},
+				#{insertList},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시 삭제 -->
+	<delete id="workOrdDel" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdIUD(
+				'delete',
+				#{workOrdIdx},
+				#{insertList},
+				#{updateJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 생산 공정내역 목록 조회 -->
+	<select id="workOrdPrcssLst" resultType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssLst(
+				#{workOrdIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 생산 공정 등록-->
+	<insert id="workOrdPrcssIns" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssIUD(
+				'insert',
+				#{idx},
+				#{descCheckYn},
+				#{groundPrintYn},
+				#{ctcpPrintYn},
+				#{workOrdIdx},
+				#{insertList},
+				#{todayWorkYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 생산 공정 수정-->
+	<update id="workOrdPrcssUpd" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssIUD(
+				'update',
+				#{idx},
+				#{descCheckYn},
+				#{groundPrintYn},
+				#{ctcpPrintYn},
+				#{workOrdIdx},
+				#{insertList},
+				#{todayWorkYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 생산 공정 다중 수정(todayWorkYn) -->
+	<update id="workOrdPrcssTodayWorkYnUpd" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssTodayWorkYnUpd(
+				'update',
+				#{idx},
+				#{todayWorkYn},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 생산 공정 삭제 -->
+	<delete id="workOrdPrcssDel" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssIUD(
+				'delete',
+				#{idx},
+				#{descCheckYn},
+				#{groundPrintYn},
+				#{ctcpPrintYn},
+				#{workOrdIdx},
+				#{insertList},
+				#{todayWorkYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 투입자재내역 목록 조회 -->
+	<select id="workOrdInputMaterialLst" resultType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdInputMaterialLst(
+				#{itemIdx},
+				#{bodIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 금일작업등록 -->
+	<insert id="workOrdPrcssDailyWorkIns" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssDailyWorkIUD(
+				'insert',
+				#{idx},
+				#{workOrdPrcssIdx},
+				#{dwCharger},
+				#{dwDate},
+				#{dwStatus},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 금일작업취소 -->
+	<update id="workOrdPrcssDailyWorkUpd" statementType="CALLABLE" parameterType="WorkPlanVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssDailyWorkIUD(
+				'update',
+				#{idx},
+				#{workOrdPrcssIdx},
+				#{dwCharger},
+				#{dwDate},
+				#{dwStatus},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+</mapper>

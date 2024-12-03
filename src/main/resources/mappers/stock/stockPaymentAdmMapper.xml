@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.stockPaymentAdmMapper">
+
+	<!-- 수불관리 조회 -->
+	<select id="stockPaymentAdmSelBySpSourceNo" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmSelBySpSourceNo(
+				#{spSourceNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수불관리 - 재고이동가능여부체크 -->
+	<select id="stockMoveYnCheckByBizOrdDtlIdx" statementType="CALLABLE" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockMoveYnCheckByBizOrdDtlIdx(
+				#{relationNo},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resultMes, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 수불관리 조회 -->
+	<select id="stockLstBySpSourceNo" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockLstBySpSourceNo(
+				#{spSourceNoString}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수불관리 등록 -->
+	<insert id="stockPaymentAdmIns" parameterType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmIUD(
+				'insert',
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수불관리 등록 ( 채번 없이 강제로 데이터만 등록 ) -->
+	<insert id="stockPaymentAdmCompulsionIns" parameterType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmIUD(
+				'compulsionInsert',
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수불관리 삭제 -->
+	<delete id="stockPaymentAdmDel" parameterType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmIUD(
+				'delete',
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 수불관리 전표번호 조회 -->
+	<select id="stockPaymentAdmGetSpNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmGetSpNo(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ================================== 현재고현황 ======================================= -->
+	<!-- 현재고현황 목록조회 -->
+	<select id="stockPaymentAdmStatusLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmStatusLst(
+				#{startDate},
+				#{endDate},
+				#{lcIdx},
+				#{itemIdx},
+				#{itemGubun},
+				#{dealCorpIdx},
+				#{searchTarget},
+				#{notStockSearch}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 현재고현황 목록조회 - 제품 -->
+	<select id="stockPaymentAdmItemLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmItemLst(
+				#{startDate},
+				#{endDate},
+				#{searchTarget},
+				#{notStockSearch},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+		
+	<!-- 현재고현황 목록조회 - 자재 -->
+	<select id="stockPaymentAdmMatrlLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmMatrlLst(
+				#{startDate},
+				#{endDate},
+				#{searchTarget},
+				#{notStockSearch}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 재고이동 목록조회 -->
+	<select id="stockPaymentMoveLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentMoveLst(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 현재고현황 목록조회 -->
+	<select id="stockPaymentAdmOriginalLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_stockPaymentAdmOriginalLst(
+				#{startDate},
+				#{endDate},
+				#{lcIdx},
+				#{itemIdx},
+				#{itemGubun},
+				#{dealCorpIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ================================== 불용재고현황 ======================================= -->
+	<!-- 불용재고현황 목록조회 -->
+	<select id="obsoleteStockLst" resultType="StockPaymentAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_obsoleteStockLst(
+				#{startDate},
+				#{lcIdx},
+				#{itemIdx},
+				#{itemGubun},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.spotToningMapper">
+
+	<!-- 조색별색정보 목록조회 -->
+	<select id="spotToningList" resultType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 조색별색정보 목록조회 -->
+	<select id="spotToningSel" resultType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 조색별색정보 등록 -->
+	<insert id="spotToningInsert" parameterType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningIUD(
+				'insert',
+				#{idx},
+				#{useYn},
+				#{colorCode},
+				#{colorGubun},
+				#{colorNumber},
+				#{toningValue},
+				#{spotNote},
+				#{spotDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 조색별색정보 수정 -->
+	<update id="spotToningUpdate" parameterType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningIUD(
+				'update',
+				#{idx},
+				#{useYn},
+				#{colorCode},
+				#{colorGubun},
+				#{colorNumber},
+				#{toningValue},
+				#{spotNote},
+				#{spotDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 조색별색정보 순번 수정 -->
+	<update id="spotToningOrderUpdate" parameterType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningOrderUpdate(
+				#{updateList},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 조색별색정보 삭제 -->
+	<delete id="spotToningDelete" parameterType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_spotToningIUD(
+				'delete',
+				#{idx},
+				#{useYn},
+				#{colorCode},
+				#{colorGubun},
+				#{colorNumber},
+				#{toningValue},
+				#{spotNote},
+				#{spotDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 조색별색정보 코드 중복 확인 -->
+	<select id="colorCdDupCheck" resultType="SpotToningVo">
+		<![CDATA[
+		{
+			call sp_bm_colorCdDupCheck(
+				#{idx},
+				#{colorCode}
+			)
+		}
+		]]>
+	</select>
+</mapper>

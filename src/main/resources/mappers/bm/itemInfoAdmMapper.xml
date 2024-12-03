@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bm.itemInfoAdmMapper">
+	
+	<!-- 품목정보관리 제품 목록조회 -->
+	<select id="itemInfoListAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmLst(
+				#{useYnCd},
+				#{itemGubun},
+				#{customerIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 제품 목록조회 -->
+	<select id="itemInfoLst" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoLst(
+				#{useYnCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 번들링 목록조회 -->
+	<select id="bundleInfoList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_bundleInfoList(
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 번들링 목록조회 -->
+	<select id="bundleInfoListByWorkOrdPrcssIdx" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_bundleInfoListByWorkOrdPrcssIdx(
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!--상세 목록 조회 -->
+	<select id="itemInfoSel" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품번 중복확인 -->
+	<select id="itemInfoDupCheck" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoDupCheck(
+				#{idx},
+				#{itemCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품명 중복확인 -->
+	<select id="itemNmDupCheck" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemNmDupCheck(
+				#{idx},
+				#{itemNm}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 등록 -->
+	<insert id="itemInfoInsert" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'insert',
+				#{idx},
+				#{useYnCd},			
+	            #{customerIdx},		
+	            #{itemCd},			
+	            #{itemNm},			
+	            #{itemSize},			
+	            #{knifeTipSize},		
+	            #{woodenCareCd},		
+	            #{holeWoodenCd},		
+	            #{versionNum},		
+	            #{stock},				
+	            #{itemColor},		
+	            #{frequency},		
+	            #{customerItemCd},	
+	            #{specialNotice},	
+	            #{relayNotice},
+	            #{coatingMethod},
+	            #{moldingMethod},
+	            #{moldingContents},
+	            #{pressMethod},
+				#{bundleMethod},
+				#{bundleUnit},
+				#{packMethod},
+				#{packUnit},
+				#{workPrinter},
+				#{detailDate},
+				#{masterPaper}, 
+				#{roundPlateCnt}, 
+				#{careCd}, 
+				#{plane}, 
+				#{inspectMethod}, 
+				#{printingYnCheck},  
+				#{plateSize}, 
+				#{etc1}, 
+				#{etc2}, 
+				#{etc3}, 
+				#{etc4}, 
+				#{etc5}, 
+				#{etc6}, 
+				#{etc7}, 
+				#{etc8}, 
+				#{etc9},
+				#{etc10},
+				#{itemGubun}, 
+				#{cmyk},  
+				#{uuid}, 
+				#{fileNm}, 
+				#{ext},
+				#{versionCheck},
+				#{resinBoard},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{lastWorkDate}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_ITEM_INFO_ADM')
+		</selectKey>
+	</insert>
+	
+	<!-- 품목정보관리 복사 -->
+	<insert id="itemInfoCopy" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoCopy(
+				#{idx},
+				#{uuid},
+				#{fileNm},
+				#{ext},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_ITEM_INFO_ADM')
+		</selectKey>
+	</insert>
+	
+	<!-- 품목정보관리 수정 -->
+	<insert id="itemInfoUpdate" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'update',
+				#{idx},
+				#{useYnCd},			
+	            #{customerIdx},		
+	            #{itemCd},			
+	            #{itemNm},			
+	            #{itemSize},			
+	            #{knifeTipSize},		
+	            #{woodenCareCd},		
+	            #{holeWoodenCd},		
+	            #{versionNum},		
+	            #{stock},				
+	            #{itemColor},		
+	            #{frequency},			
+	            #{customerItemCd},	
+	            #{specialNotice},
+	            #{relayNotice},
+	            #{coatingMethod},
+	            #{moldingMethod},
+	            #{moldingContents},
+	            #{pressMethod},
+				#{bundleMethod},
+				#{bundleUnit},
+				#{packMethod},
+				#{packUnit},
+				#{workPrinter},
+				#{detailDate},
+				#{masterPaper}, 
+				#{roundPlateCnt}, 
+				#{careCd}, 
+				#{plane}, 
+				#{inspectMethod}, 
+				#{printingYnCheck},  
+				#{plateSize}, 
+				#{etc1},  
+				#{etc2}, 
+				#{etc3}, 
+				#{etc4}, 
+				#{etc5}, 
+				#{etc6}, 
+				#{etc7}, 
+				#{etc8}, 
+				#{etc9},
+				#{etc10},
+				#{itemGubun}, 
+				#{cmyk},  
+				#{uuid}, 
+				#{fileNm}, 
+				#{ext},
+				#{versionCheck},
+				#{resinBoard},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{lastWorkDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목정보관리 삭제 -->
+	<delete id="itemInfoDelete" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAdmIUD(
+				'delete',
+				#{idx},
+				#{useYnCd},			
+	            #{customerIdx},		
+	            #{itemCd},			
+	            #{itemNm},			
+	            #{itemSize},			
+	            #{knifeTipSize},		
+	            #{woodenCareCd},		
+	            #{holeWoodenCd},		
+	            #{versionNum},		
+	            #{stock},				
+	            #{itemColor},		
+	            #{frequency},		
+	            #{customerItemCd},	
+	            #{specialNotice},	
+	            #{relayNotice},
+	            #{coatingMethod},
+	            #{moldingMethod},
+	            #{moldingContents},
+	            #{pressMethod},
+				#{bundleMethod},
+				#{bundleUnit},
+				#{packMethod},
+				#{packUnit},
+				#{workPrinter},
+				#{detailDate},
+				#{masterPaper}, 
+				#{roundPlateCnt}, 
+				#{careCd}, 
+				#{plane}, 
+				#{inspectMethod}, 
+				#{printingYnCheck},  
+				#{plateSize}, 
+				#{etc1}, 
+				#{etc2}, 
+				#{etc3}, 
+				#{etc4}, 
+				#{etc5}, 
+				#{etc6}, 
+				#{etc7}, 
+				#{etc8}, 
+				#{etc9},
+				#{etc10},
+				#{itemGubun}, 
+				#{cmyk},  
+				#{uuid}, 
+				#{fileNm}, 
+				#{ext},
+				#{versionCheck},
+				#{resinBoard},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{lastWorkDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 품목정보관리 이력 목록조회 -->
+	<select id="itemVersionListAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemVersionLst(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 이력 목록조회 -->
+	<select id="itemPerformanceHistoryLst" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPerformanceHistoryLst(
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 이력 등록 -->
+	<insert id="itemVersionInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemVersionIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{itemVersion},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목정보관리 이력 수정 -->
+	<update id="itemVersionUpdate" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemVersionIUD(
+				'update',
+				#{idx},
+				#{itemIdx},
+				#{itemVersion},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 품목정보관리 이력 삭제 -->
+	<delete id="itemVersionDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemVersionIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{itemVersion},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 품목정보관리 파일 목록조회 -->
+	<select id="itemFileListAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoFileSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 품목정보관리 파일 등록 -->
+	<insert id="itemFileInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoFileIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},			
+	            #{uuid},		
+				#{fileNm},
+				#{ext},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목정보관리 파일 삭제 -->
+	<delete id="itemFileDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoFileIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},			
+	            #{uuid},		
+				#{fileNm},
+				#{ext},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제품코드조회 목록조회 -->
+	<select id="itemInfoDtlListAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoDtlLst(
+				#{useYnCd},
+				#{itemGubun},
+				#{customerIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품코드, 자재 목록조회 -->
+	<select id="itemInfoAndMatrlListAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemInfoAndMatrlListAll(
+				#{itemMatrlGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 상품코드, 자재 목록조회 -->
+	<select id="goodsInfoAndMatrlLstAll" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_goodsInfoAndMatrlLstAll(
+				#{itemMatrlGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 투입자재 목록조회 -->
+	<select id="itemBomList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemBomLst(
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 투입자재 목록조회 -->
+	<select id="itemBomListByItemIdxJson" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemBomListByItemIdxJson(
+				#{itemIdxJson}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 투입자재 등록 -->
+	<insert id="itemBomInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemBomIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 투입자재 삭제 -->
+	<delete id="itemBomDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemBomIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 공정 목록조회 -->
+	<select id="itemPrcssList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssLst(
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 공정 등록 -->
+	<insert id="itemPrcssInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정 삭제 -->
+	<delete id="itemPrcssDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_itemPrcssIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 품목정보관리 번들링 등록 -->
+	<insert id="bundleInfoInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_bundleInfoIUD(
+				'insert',
+				#{idx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 품목정보관리 번들링 삭제 -->
+	<delete id="bundleInfoDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bm_bundleInfoIUD(
+				'delete',
+				#{idx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.inProdWhsAdmMapper">
+	
+	<!-- 제품 입고전표 등록 -->
+	<insert id="inProdWhsAdmIns" parameterType="InProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmIUD(
+				'insert',
+				#{inSlipNo},
+				#{inSlipSeq},
+				#{itemGubun},
+				#{inGubun},
+				#{itemCd},
+				#{preInQty},
+				#{inQty},
+				#{remainQty},
+				#{preInDate},
+				#{inDate},
+				#{inCorpCd},
+				#{inStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{inDesc},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품 입고전표 등록 -->
+	<insert id="inProdWhsAdmCompulsionIns" parameterType="InProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmIUD(
+				'compulsionInsert',
+				#{inSlipNo},
+				#{inSlipSeq},
+				#{itemGubun},
+				#{inGubun},
+				#{itemCd},
+				#{preInQty},
+				#{inQty},
+				#{remainQty},
+				#{preInDate},
+				#{inDate},
+				#{inCorpCd},
+				#{inStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{inDesc},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품 입고전표 삭제 -->
+	<delete id="inProdWhsAdmDel" parameterType="InProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmIUD(
+				'delete',
+				#{inSlipNo},
+				#{inSlipSeq},
+				#{itemGubun},
+				#{inGubun},
+				#{itemCd},
+				#{preInQty},
+				#{inQty},
+				#{remainQty},
+				#{preInDate},
+				#{inDate},
+				#{inCorpCd},
+				#{inStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{inDesc},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제품 전표번호 조회 -->
+	<select id="getInSlipNoByRelationNo" resultType="InProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmGetInSlipNoByRelationNo(
+				#{relationNo},
+				#{inGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품 전표번호 조회 -->
+	<select id="getInSlipNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmGetInSlipNo(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품 전표번호 조회 -->
+	<select id="getLotNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_inProdWhsAdmGetLotNo(
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

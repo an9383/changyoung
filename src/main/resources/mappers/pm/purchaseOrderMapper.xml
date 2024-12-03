@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.pm.purchaseOrderMapper">
+
+	<!-- =========================== 발주관리 메인 ========================================== -->
+	<!-- 발주관리 메인 목록조회 -->
+	<select id="purchaseOrderAdmLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLst(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 발주서번호별 목록조회 -->
+	<select id="purchaseOrderAdmLstByPurchasePrintNo" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstByPurchasePrintNo(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 수주상세식별자별 목록조회 -->
+	<select id="purchaseOrderAdmLstByBizDtlIdx" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstByBizDtlIdx(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 발주서번호별 입고 상세 목록조회 -->
+	<select id="purchaseOrderDtlLstByPurchasePrintNo" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderDtlLstByPurchasePrintNo(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 수주별 목록조회 -->
+	<select id="purchaseOrderAdmLstByBizDtl" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstByBizDtl(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 공정별 목록조회 -->
+	<select id="purchaseOrderAdmLstByWorkOrdPrcss" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstByWorkOrdPrcss(
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 개별발주 목록조회 -->
+	<select id="purchaseOrderAdmLstBySingle" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstBySingle(
+				#{startDate},
+				#{endDate},
+				#{searchInMatrlTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 메인 상세조회 -->
+	<select id="purchaseOrderAdmSel" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 메인 등록 -->
+	<insert id="purchaseOrderAdmIns" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmIUD(
+				'insert',
+				#{idx},
+				#{mergeIdx},
+				#{matrlIdx},
+				#{bizOrdDtlIdx},
+				#{purchaseOrdNo},
+				#{cutQty},
+				#{eaQty},
+				#{extraQty},
+				#{extraPackQty},
+				#{cutSize},
+				#{purchaseOrdQty},
+				#{purchaseOrdDate},
+				#{purchaseInDueDate},
+				#{dealCorpIdx},
+				#{stockUseYn},
+				#{confirmYn},
+				#{printYn},
+				#{purchaseNote},
+				#{purchaseDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{returnIdx, mode=OUT, jdbcType=NVARCHAR},
+				#{successYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 발주관리 메인 수정 -->
+	<update id="purchaseOrderAdmUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmIUD(
+				'update',
+				#{idx},
+				#{mergeIdx},
+				#{matrlIdx},
+				#{bizOrdDtlIdx},
+				#{purchaseOrdNo},
+				#{cutQty},
+				#{eaQty},
+				#{extraQty},
+				#{extraPackQty},
+				#{cutSize},
+				#{purchaseOrdQty},
+				#{purchaseOrdDate},
+				#{purchaseInDueDate},
+				#{dealCorpIdx},
+				#{stockUseYn},
+				#{confirmYn},
+				#{printYn},
+				#{purchaseNote},
+				#{purchaseDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{returnIdx, mode=OUT, jdbcType=NVARCHAR},
+				#{successYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 발주관리 메인 수정/삭제 체크 -->
+	<select id="purchaseOrderAdmUpdCheckByBizOrdDtlIdx" parameterType="PurchaseOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmUpdCheckByBizOrdDtlIdx(
+				#{bizOrdDtlIdx},
+				#{resultYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 메인 수정/삭제 체크 -->
+	<select id="purchaseOrderAdmUpdCheckByBizOrdDtlIdxJson" parameterType="PurchaseOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmUpdCheckByBizOrdDtlIdxJson(
+				#{purchaseOrdIdxJson},
+				#{resultYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주관리 입고예정일 수정 -->
+	<update id="purchaseOrderInDueDateAdmUpd" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderInDueDateAdmUpd(
+				#{updateJson},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 발주관리 주문수량 수정 --> <!-- purchaseOrdQty <- 원래는 주문수량 수정이었는데 추가여분수량 생업데이트하는 방식으로 변경됨 -->
+	<update id="purchaseOrderQtyAdmUpd" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderQtyAdmUpd(
+				#{idx},
+				#{purchaseOrdQty}, 
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 발주관리 메인 삭제 -->
+	<delete id="purchaseOrderAdmDel" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmIUD(
+				'delete',
+				#{idx},
+				#{mergeIdx},
+				#{matrlIdx},
+				#{bizOrdDtlIdx},
+				#{purchaseOrdNo},
+				#{cutQty},
+				#{eaQty},
+				#{extraQty},
+				#{extraPackQty},
+				#{cutSize},
+				#{purchaseOrdQty},
+				#{purchaseOrdDate},
+				#{purchaseInDueDate},
+				#{dealCorpIdx},
+				#{stockUseYn},
+				#{confirmYn},
+				#{printYn},
+				#{purchaseNote},
+				#{purchaseDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{returnIdx, mode=OUT, jdbcType=NVARCHAR},
+				#{successYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 발주서 출력번호 및 출력여부 수정 -->
+	<update id="purchasePaperUpd" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchasePaperUpd(
+				'update',
+				#{idx},
+				#{printDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 발주서 출력번호 및 출력여부 삭제 -->
+	<update id="purchasePaperDel" statementType="CALLABLE" parameterType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchasePaperUpd(
+				'delete',
+				#{idx},
+				#{printDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- =========================== 발주관리 입고등록페이지 ========================================== -->
+	<select id="purchaseOrderAdmLstSumInQty" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstSumInQty(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 발주관리 필요량 계산 ========================================== -->
+	<!-- 발주 재질별 필요량 계산 목록조회 -->
+	<select id="purchaseOrderAdmLstWithNeedQty" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstWithNeedQty(
+				#{startDate},
+				#{endDate},
+				#{searchTarget},
+				#{stockUseNotSearch}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 발주 재질별 가용재고량 목록 조회 -->
+	<select id="purchaseOrderAdmLstWithAsQty" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_purchaseOrderAdmLstWithAsQty(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 입고원장 페이지 ========================================== -->
+	<!-- 입고원장 목록조회 -->
+	<select id="inOrginLst" resultType="PurchaseOrderVo">
+		<![CDATA[
+		{
+			call sp_pm_inOrginLst(
+				#{startDate},
+				#{endDate},
+				#{searchDayGubun},
+				#{dealCorpIdx},
+				#{matrlIdx},
+				#{itemGubun},
+				#{date}
+			)
+		}
+		]]>
+	</select>
+</mapper>

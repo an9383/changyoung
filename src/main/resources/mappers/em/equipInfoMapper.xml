@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.em.equipInfoMapper">
+	
+	<!-- 설비코드 목록조회 -->
+	<select id="equipInfoListAll" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoLst(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비 담당자 목록조회 -->
+	<select id="equipUserInfoLst" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipUserInfoLst(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비담당자 등록 -->
+	<insert id="equipUserDelIns" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipUserDelIns(
+				#{insertJson},
+				#{idx},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 공정설비 목록조회 -->
+	<select id="prcssEquipInfoListAll" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_prcssEquipInfoLst(
+				#{prcssIdx},
+				#{prcssEquipSelectGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!--설비코드 상세목록 조회 -->
+	<select id="equipInfoSel" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비코드 중복확인 -->
+	<select id="equipInfoDupCheck" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoDupCheck(
+				#{idx},
+				#{equipCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비코드 등록 -->
+	<insert id="equipInfoInsert" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoIUD(
+				'insert',
+				#{idx},
+				#{equipCd},
+				#{equipNm},
+				#{serialNo},
+				#{makerNm},
+				#{buyDate},
+				#{buyPrice}, 
+				#{setupLocation}, 
+				#{equipDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 설비코드 수정 -->
+	<insert id="equipInfoUpdate" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoIUD(
+				'update',
+				#{idx},
+				#{equipCd},
+				#{equipNm},
+				#{serialNo},
+				#{makerNm},
+				#{buyDate},
+				#{buyPrice}, 
+				#{setupLocation}, 
+				#{equipDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 설비코드  순번 수정 -->
+	<update id="equipInfoOrdUpdate" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoOrdUpdate(
+				#{updateList},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 설비코드 삭제 -->
+	<delete id="equipInfoDelete" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipInfoIUD(
+				'delete',
+				#{idx},
+				#{equipCd},
+				#{equipNm},
+				#{serialNo},
+				#{makerNm},
+				#{buyDate},
+				#{buyPrice}, 
+				#{setupLocation}, 
+				#{equipDesc},
+				#{useYn},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 관련자료 목록조회 -->
+	<select id="equipAttachDataList" resultType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipAttachDataSel(
+				#{equipIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 관련자료 등록 -->
+	<insert id="equipAttachDataInsert" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipAttachDataIUD(
+				'insert',
+				#{idx},
+				#{equipIdx},
+				#{uuid},
+				#{fileNm},
+				#{ext},
+				#{fileContents},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 관련자료 삭제 -->
+	<delete id="equipAttachDataDelete" parameterType="EquipInfoVo">
+		<![CDATA[
+		{
+			call sp_em_equipAttachDataIUD(
+				'delete',
+				#{idx},
+				#{equipIdx},
+				#{uuid},
+				#{fileNm},
+				#{ext},
+				#{fileContents},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</delete>
+</mapper>

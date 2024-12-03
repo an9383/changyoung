@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.bs.bizOrderMapper">
+	
+	<!-- =========================== 수주관리 메인 ========================================== -->
+	<!-- 수주관리 메인 목록조회 -->
+	<select id="bizOrderAdmLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmLst(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 목록조회-GROUP BY 고객사 -->
+	<select id="bizOrderAdmLstGroupByDealCorp" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmLstGroupByDealCorp(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 목록조회-GROUP BY 자재 -->
+	<select id="bizOrderDtlLstGroupByMatrl" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlLstGroupByMatrl(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 상세조회 -->
+	<select id="bizOrderAdmSel" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 메인 등록 -->
+	<insert id="bizOrderAdmIns" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmIUD(
+				'insert',
+				#{idx},
+				#{bizOrdNo},
+				#{dealCorpIdx},
+				#{ordDate},
+				#{ordGubun},
+				#{ordDesc},
+				#{purchaseUuid},
+				#{purchaseFileName},
+				#{purchaseExt},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+		<selectKey resultType="String" keyProperty="idx" order="AFTER">
+			SELECT IDENT_CURRENT('TB_BIZ_ORDER_ADM')
+		</selectKey>
+	</insert>
+	
+	<!-- 수주관리 메인 수정 -->
+	<update id="bizOrderAdmUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmIUD(
+				'update',
+				#{idx},
+				#{bizOrdNo},
+				#{dealCorpIdx},
+				#{ordDate},
+				#{ordGubun},
+				#{ordDesc},
+				#{purchaseUuid},
+				#{purchaseFileName},
+				#{purchaseExt},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+		
+	<!-- 수주관리 번들링 업데이트 -->
+	<update id="bizOrderAdmBundleUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmBundleUpd(
+				#{bizOrdAdmIdx},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	<!-- 수주관리 메인 삭제 -->
+	<delete id="bizOrderAdmDel" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmIUD(
+				'delete',
+				#{idx},
+				#{bizOrdNo},
+				#{dealCorpIdx},
+				#{ordDate},
+				#{ordGubun},
+				#{ordDesc},
+				#{purchaseUuid},
+				#{purchaseFileName},
+				#{purchaseExt},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 수주관리 메인 목형코드 중복확인 -->
+	<select id="bizOrderAdmIdDupCheck" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmWdCdDupCheck(
+				#{idx},
+				#{wdCd}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 수주관리 상세 ========================================== -->
+	<!-- 수주관리 상세 목록조회 -->
+	<select id="bizOrderSpQtySel" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderSpQtySel(
+				#{stringItemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 상세 목록조회 -->
+	<select id="bizOrderDtlLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlLst(
+				#{bizOrdAdmIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 상세 상세조회 -->
+	<select id="bizOrderDtlSel" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 상세 수주 상태 수정 -->
+	<update id="bizOrderDtlStatusUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlStatusUpd(
+				#{idx},
+				#{bizStatusCd},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 등록 -->
+	<insert id="bizOrderDtlIns" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlIUD(
+				'insert',
+				#{idx},
+				#{workplaceIdx},
+				#{bizOrdAdmIdx},
+				#{ordGubun},
+				#{bizOrdDtlNo},
+				#{bizStatusCd},
+				#{stockUseYn},
+				#{ordQty},
+				#{stockUseQty},
+				#{stockReUseQty},
+				#{purchaseBatch},
+				#{itemIdx},
+				#{itemVerIdx},
+				#{ordNote},
+				#{ordIssue},
+				#{ordDate},
+				#{workEndReqDate},
+				#{outReqDate},
+				#{confirmOrder},
+				#{confirmDesign},
+				#{ordDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resEtc9, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 상세 수정 -->
+	<update id="bizOrderDtlUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlIUD(
+				'update',
+				#{idx},
+				#{workplaceIdx},
+				#{bizOrdAdmIdx},
+				#{ordGubun},
+				#{bizOrdDtlNo},
+				#{bizStatusCd},
+				#{stockUseYn},
+				#{ordQty},
+				#{stockUseQty},
+				#{stockReUseQty},
+				#{purchaseBatch},
+				#{itemIdx},
+				#{itemVerIdx},
+				#{ordNote},
+				#{ordIssue},
+				#{ordDate},
+				#{workEndReqDate},
+				#{outReqDate},
+				#{confirmOrder},
+				#{confirmDesign},
+				#{ordDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resEtc9, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 수정 - 관리내역서출력 -->
+	<update id="bizOrderDtlUpdByEditHistoryPrint" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlUpdByEditHistoryPrint(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 수정 - 번들링출력 -->
+	<update id="bizOrderDtlUpdByBundlePrint" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlUpdByBundlePrint(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 수정 -->
+	<update id="bizOrderDtlUpdByTeamSchedule" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlUpdByTeamSchedule(
+				#{updateJson},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 수주중지 -->
+	<update id="bizOrderDtlStop" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlStop(
+				#{idx},
+				#{bizStopYn},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 출고시 수주 상태값 수정 -->
+	<update id="bizOrderDtlStatusUpdWithItemOut" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlStatusUpdWithItemOut(
+				#{updateJson},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 수정 -->
+	<update id="bizOrderDtlStockYnUpd" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlStockUseYnUpd(
+				#{idx},
+				#{stockUseYn},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 삭제 -->
+	<delete id="bizOrderDtlDel" statementType="CALLABLE" parameterType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlIUD(
+				'delete',
+				#{idx},
+				#{workplaceIdx},
+				#{bizOrdAdmIdx},
+				#{ordGubun},
+				#{bizOrdDtlNo},
+				#{bizStatusCd},
+				#{stockUseYn},
+				#{ordQty},
+				#{stockUseQty},
+				#{stockReUseQty},
+				#{purchaseBatch},
+				#{itemIdx},
+				#{itemVerIdx},
+				#{ordNote},
+				#{ordIssue},
+				#{ordDate},
+				#{workEndReqDate},
+				#{outReqDate},
+				#{confirmOrder},
+				#{confirmDesign},
+				#{ordDtlDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR},
+				#{resIdx, mode=OUT, jdbcType=VARCHAR},
+				#{resEtc9, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 수주관리 상세 취소 -->
+	<update id="bizOrderDtlCancel" parameterType="BizOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlCancel(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 PO완료처리 -->
+	<update id="bizOrderDtlPoEnd" parameterType="BizOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlPoEnd(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 PO완료처리 -->
+	<update id="bizOrderDtlPoEndByBizOrdDtlIdxString" parameterType="BizOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlPoEndByBizOrdDtlIdxString(
+				#{bizOrdDtlIdxString},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 수주관리 상세 버전 최신화(업데이트) -->
+	<update id="bizOrderDtlItemVersionUpd" parameterType="BizOrderVo" statementType="CALLABLE">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlItemVersionUpd(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=NVARCHAR},
+				#{resMessage, mode=OUT, jdbcType=NVARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- =========================== 수주현황 ========================================== -->
+	<!-- 수주관리 전체 목록조회(수주별발주미포함) -->
+	<select id="bizOrderStatusLst" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderStatusLst(
+				#{startDate},
+				#{endDate},
+				#{confirmDesign},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 전체 목록조회(수주별발주포함) -->
+	<select id="bizOrderStatusLstWithPO" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderStatusLstWithPO(
+				#{startDate},
+				#{endDate},
+				#{confirmDesign},
+				#{purchaseTarget},
+				#{searchInMatrlTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== 공정정보 ========================================== -->
+	<!-- 수주관리 제품공정 목록조회 -->
+	<select id="bizOrderItemPrcssList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemPrcssLst(
+				#{itemIdx},
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<select id="bizOrderWorkOrderPrcssList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderWorkOrderPrcssList(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 제품공정 작업계획확정 전 작업지시 체크 -->
+	<select id="bizOrderWorkOrderCheckList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderWorkOrderCheckList(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 제품공정 작업계획확정 -->
+	<insert id="bizOrderWorkOrderInsert" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderWorkOrderInsert(
+				#{bizOrdDtlIdx},
+				#{itemIdx},
+				#{regIdx},
+				#{regDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품공정 작업계획확정 -->
+	<insert id="bizOrderWorkOrderDelete" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderWorkOrderDelete(
+				#{bizOrdDtlIdx},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품공정 복사 -->
+	<insert id="bizOrderItemPrcssCopy" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemPrcssCopy(
+				#{bizOrdDtlIdx},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품공정 등록 -->
+	<insert id="bizOrderItemPrcssInsert" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemPrcssIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품공정 삭제 -->
+	<delete id="bizOrderItemPrcssDelete" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemPrcssIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- =========================== 투입자재 ========================================== -->
+	<!-- 수주관리 제품투입자재 목록조회 -->
+	<select id="bizOrderItemBomList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemBomLst(
+				#{itemIdx},
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 제품투입자재 등록 -->
+	<insert id="bizOrderItemBomInsert" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemBomIUD(
+				'insert',
+				#{idx},
+				#{itemIdx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품투입자재 복사 -->
+	<insert id="bizOrderItemBomCopy" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemBomCopy(
+				#{bizOrdDtlIdx},
+				#{regIdx},
+				#{regDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품투입자재 삭제 -->
+	<delete id="bizOrderItemBomDelete" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderItemBomIUD(
+				'delete',
+				#{idx},
+				#{itemIdx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- =========================== 번들링 ========================================== -->
+	<!-- 수주관리 제품번들링 목록조회 -->
+	<select id="bizOrderDtlBundleList" resultType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlBundleList(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 제품번들링 등록 -->
+	<insert id="bizOrderDtlBundleIns" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlBundleIUD(
+				'insert',
+				#{idx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품번들링 복사 -->
+	<insert id="bizOrderDtlBundleCopy" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlBundleIUD(
+				'copy',
+				#{idx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 수주관리 제품번들링 삭제 -->
+	<delete id="bizOrderDtlBundleDel" statementType="CALLABLE" parameterType="ItemInfoAdmVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlBundleIUD(
+				'delete',
+				#{idx},
+				#{bizOrdDtlIdx},
+				#{insertList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- =========================== 수주집계표 ========================================== -->
+	<!-- 수주관리 수주집계표 수주기간별 수주처 목록조회 -->
+	<select id="bizOrderAdmLstAsDealCorp" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderAdmLstAsDealCorp(
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주관리 수주집계표 수주처별 목록조회 -->
+	<select id="bizOrderDtlLstByDealCorp" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizOrderDtlLstByDealCorp(
+				#{dealCorpIdx},
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 번들링 구성품 목록 -->
+	<select id="bizItemBundleList" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_bizItemBundleList(
+				#{bizOrdDtlNo}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- =========================== FSC제품 메인 ========================================== -->
+	<!--FSC제품 목록조회 -->
+	<select id="fscItemList" resultType="BizOrderVo">
+		<![CDATA[
+		{
+			call sp_bs_fscItemLst(
+				#{startDate},
+				#{endDate},
+				#{itemIdx},
+				#{dealCorpIdx}
+			)
+		}
+		]]>
+	</select>
+</mapper>

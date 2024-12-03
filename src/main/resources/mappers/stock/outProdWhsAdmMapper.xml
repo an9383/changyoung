@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.stock.outProdWhsAdmMapper">
+
+	<!-- 수주의 출고가능한 제품 조회  -->
+	<select id="bizOrderDtlList" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_bizOrderDtlList(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주의 출고가능한 제품 조회  -->
+	<select id="bizOrderProdOutLst" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_bizOrderProdOutLst(
+				#{startDate},
+				#{endDate},	
+				#{itemIdx},
+				#{dealCorpIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 수주의 출고가능한 제품 조회  -->
+	<select id="getOutProdLstByOutNo" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_getOutProdLstByOutNo(
+				#{outNoString}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품 출고전표 등록 -->
+	<insert id="outProdWhsAdmIns" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'insert',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemIdx},
+				#{carAssignment},
+				#{preOutQty},
+				#{outQty},
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpIdx},
+				#{outStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{outDesc},
+				#{outProdEtc1},
+				#{outProdEtc2},
+				#{outProdEtc3},
+				#{outProdEtc4},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품 출고전표 등록 -->
+	<insert id="outProdWhsAdmCompulsionIns" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'compulsionInsert',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemIdx},
+				#{carAssignment},
+				#{preOutQty},
+				#{outQty},
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpIdx},
+				#{outStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{outDesc},
+				#{outProdEtc1},
+				#{outProdEtc2},
+				#{outProdEtc3},
+				#{outProdEtc4},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 제품 출고전표 수정 -->
+	<update id="outProdWhsAdmUpd" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'update',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemIdx},
+				#{carAssignment},
+				#{preOutQty},
+				#{outQty},
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpIdx},
+				#{outStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{outDesc},
+				#{outProdEtc1},
+				#{outProdEtc2},
+				#{outProdEtc3},
+				#{outProdEtc4},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 제품 출고전표 삭제 -->
+	<delete id="outProdWhsAdmDel" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmIUD(
+				'delete',
+				#{outSlipNo},
+				#{outSlipSeq},
+				#{itemGubun},
+				#{outGubun},
+				#{itemIdx},
+				#{carAssignment},
+				#{preOutQty},
+				#{outQty},
+				#{remainQty},
+				#{preOutDate},
+				#{outDate},
+				#{outCorpIdx},
+				#{outStatus},
+				#{lotNo},
+				#{relationNo},
+				#{whsGubun},
+				#{whsIdx},
+				#{locIdx},
+				#{outDesc},
+				#{outProdEtc1},
+				#{outProdEtc2},
+				#{outProdEtc3},
+				#{outProdEtc4},
+				#{insertJson},
+				#{deleteJson},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 제품 전표번호 조회 -->
+	<select id="getOutSlipNo" resultType="String">
+		<![CDATA[
+		{
+			call sp_stock_outProdWhsAdmGetOutSlipNo(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 제품 전표번호 조회 -->
+	<select id="getOutSlipNoByRelationNo" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_getOutSlipNoByRelationNo(
+				#{relationNo},
+				#{outGubun}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 납품계획등록 조회 -->
+	<select id="deliveryPlanList" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_deliveryPlanList(
+				#{startDate},
+				#{endDate},
+				#{dealCorpIdx},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ********************************** 납품계획등록 ********************************** -->
+	<!-- 제품 출고내역 조회 -->
+	<select id="outProdDtlList" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_outProdDtlList(
+				#{startDate},
+				#{endDate},
+				#{searchTarget}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 원거래명세서출력 번호 발급 -->
+	<update id="tradingStatementUpd" statementType="CALLABLE" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_tradingStatementUD(
+				'update',
+				#{outSlipIdx},
+				#{outDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 원거래명세서출력 번호 삭제 -->
+	<delete id="tradingStatementDel" statementType="CALLABLE" parameterType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_tradingStatementUD(
+				'delete',
+				#{outSlipIdx},
+				#{outDate},
+				#{updIdx},
+				#{updDate},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR},
+				#{resMessage, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- bizOrdDtlNo로 번들링 목록조회 -->
+	<select id="bizOrderDtlBundleListWithBizOrdDtlNo" resultType="OutProdWhsAdmVo">
+		<![CDATA[
+		{
+			call sp_stock_bizOrderDtlBundleListWithBizOrdDtlNo(
+				#{bizOrdDtlNo}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

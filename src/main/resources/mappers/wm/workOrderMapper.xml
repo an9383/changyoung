@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.wm.workOrderMapper">
+
+	<!-- 작업지시서 목록(공정별) 조회 / 지시일 기준 -->
+	<select id="workOrdDtlLstWithPrcssByOrdDate" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdDtlLstWithPrcssByOrdDate(
+				#{startDate},
+				#{endDate},
+				#{searchTarget},
+				#{prcssIdx},
+				#{prcssGroupCd},
+				#{loginUserIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(공정별) 조회 / 수주dtl Idx 기준 -->
+	<select id="workOrdDtlLstWithPrcssByBizDtlIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdDtlLstWithPrcssByBizDtlIdx(
+				#{bizOrdDtlIdx}
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 작업지시서 목록(공정별) 조회 / 지시일 기준 -->
+	<select id="workOrdLstWithPrcssByOrdDate" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdLstWithPrcssByOrdDate(
+				#{searchTarget},
+				#{startDate},
+				#{endDate},
+				#{prcssIdx},
+				#{equipIdx},
+				#{loginUserIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시 기준 마지막 공정 정보 조회 -->
+	<select id="workOrdLastPrcssSel" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdLastPrcssSel(
+				#{workOrdIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(공정별) 조회-작지기준 -->
+	<select id="workOrdLstWithPrcssByWorkOrd" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdLstWithPrcssByWorkOrd(
+				#{workOrdIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(공정별) 조회-수주상세식별자기준 -->
+	<select id="workOrdLstWithPrcssByBizOrdDtlIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdLstWithPrcssByBizOrdDtlIdx(
+				#{bodIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(생산진행현황) 조회 -->
+	<select id="workOrdPrcssStatusLst" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusLst(
+				#{startDate},
+				#{endDate},
+				#{dealCorpIdx},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(기간별생산현황) 조회 -->
+	<select id="workOrdPrcssStatusLstOrderByDealCorp" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusLstOrderByDealCorp(
+				#{startDate},
+				#{endDate},
+				#{dealCorpIdx},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(기간별생산현황,지시일 오름차순) 조회 -->
+	<select id="workOrdPrcssStatusLstOrderByworkOrdDate" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusLstOrderByworkOrdDate(
+				#{startDate},
+				#{endDate},
+				#{dealCorpIdx},
+				#{itemIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 정보 조회 -->
+	<select id="workOrdSelWithPrcss" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdSelWithPrcss(
+				#{workOrdIdx},
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 인쇄 -->
+	<update id="workOrdPaperPrint" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPaperPrint(
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시 공정 강제 완료 처리 -->
+	<update id="workOrdForcedPrcssEnd" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdForcedPrcssEndUpd(
+				#{workOrdIdx},
+				#{bizOrdDtlIdx},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업대기 -->
+	<update id="workOrdPrcssWait" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusUpdate(
+				'PI',
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{itemIdx},
+				#{packUnit},
+				#{updIdx},
+				#{updDate},
+				#{workTime}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업시작 -->
+	<update id="workOrdPrcssStart" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusUpdate(
+				'WI',
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{itemIdx},
+				#{packUnit},
+				#{updIdx},
+				#{updDate},
+				#{workTime}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업완료 -->
+	<update id="workOrdPrcssEnd" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssStatusUpdate(
+				'WC',
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{itemIdx},
+				#{packUnit},
+				#{updIdx},
+				#{updDate},
+				#{workTime}
+			)
+		}
+		]]>
+	</update>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업 실적 등록 -->
+	<insert id="workOrdPrcssResultSave" statementType="CALLABLE" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultSave(
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{prcssIdx},
+				#{workDate},
+				#{workStartTime},
+				#{workEndTime},
+				#{fairQty},
+				#{faultyQty},
+				#{workAddCuttingQty},
+				#{faultyReason},
+				#{prcssDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate},
+				#{resultIdx, mode=OUT, jdbcType=VARCHAR}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업 실적 수정 -->
+	<insert id="workOrdPrcssResultUpd" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultUpd(
+				#{workOrdResultIdx},
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{prcssIdx},
+				#{workDate},
+				#{workStartTime},
+				#{workEndTime},
+				#{fairQty},
+				#{faultyQty},
+				#{faultyReason},
+				#{prcssDesc},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 작업지시서 목록(공정별) 현공정 작업 실적 삭제 -->
+	<delete id="workOrdPrcssResultDel" statementType="CALLABLE" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultDel(
+				#{idx},	
+				#{workOrdIdx},
+				#{workOrdPrcssIdx},
+				#{resultYn, mode=OUT, jdbcType=VARCHAR}
+				
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 작업지시서 목록(공정별) - 전공정 작업 완료 체크 -->
+	<select id="checkWorkOrdPrcssFinish" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_checkWorkOrdPrcssFinish(
+				#{workOrdIdx},
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 작업지시서 목록(공정별) - 다음공정 조회 -->
+	<select id="workOrdNextPrcssSel" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdNextPrcssSel(
+				#{workOrdIdx},
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- **********************************생산실적********************************** -->
+	<!-- 생산실적 목록(공정별) 조회 -->
+	<select id="workOrdResultListByPrcss" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdResultListByPrcss(
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 생산실적 목록(작지별) 조회 -->
+	<select id="workOrdResultListByWorkOrdIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdResultListByWorkOrdIdx(
+				#{workOrdIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 생산실적 작업지시 출고창고(수불발생해야할 창고) 목록 조회 -->
+	<select id="workOrdOutMatrlLocationList" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdOutMatrlLocationList(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 생산실적 작업지시 QC창고(수불발생해야할 창고) 목록 조회 -->
+	<select id="workInProdLocationList" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workInProdLocationList(
+			)
+		}
+		]]>
+	</select>
+
+	<!-- 생산실적 품질 테이블 데이터 INSERT-->
+	<insert id="workOrdPrcssResultQualityInsert" statementType="CALLABLE" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultQualityInsert(
+				#{workOrdResultIdx},
+				#{regIdx},
+				#{regDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- //생산실적 품질 승인 목록 조회-->
+	<select id="workOrdPrcssResultQualityCheckByWorkOrdPrcssIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultQualityCheckByWorkOrdPrcssIdx(
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select> 
+		
+	<!-- //생산실적 품질 상태 조회-->
+	<select id="workOrdPrcssResultQualitySelByWorkOrdPrcssIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdPrcssResultQualitySelByWorkOrdPrcssIdx(
+				#{workOrdResultIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 번들링 정보 조회 -->
+	<select id="workOrdBundleList" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workOrdBundleList(
+				#{bizOrdDtlIdx},
+				#{workOrdPrcssIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 번들링 실적 저장시 - 해당 수주들의 마지막 공정의 실적 -->
+	<select id="bundleEndPrcssWorkResultList" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_bundleEndPrcssWorkResultList(
+				#{bizOrdDtlIdxString}
+			)
+		}
+		]]>
+	</select> 
+	
+	<!-- 번들링 실적 삭제시 - HIST기록 조회 -->
+	<select id="bundleWorkResultHistSel" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_bundleWorkResultHistSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select> 
+	 
+	<!-- 번들링 - 수주의 실적 수정 및 hist insert-->
+	<insert id="workResultUpdAndHistIns" parameterType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_workResultUpdAndHistIns(
+				#{iuGubun},
+				#{updAndInsList},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert> 
+	
+	<!-- 번들링 실적 저장시 - 해당 수주들의 생산실적 수불리스트( 제품입고, 제품검사까지만 ) -->
+	<select id="bundleBizOrdStockList" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_bundleBizOrdStockList(
+				#{selectList}
+			)
+		}
+		]]>
+	</select> 
+	
+	<!-- 공정식별자로 해당 공정의 작업자 리스트 -->
+	<select id="prcssWorkerLstByPrcssIdx" resultType="WorkOrderVo">
+		<![CDATA[
+		{
+			call sp_wm_prcssWorkerLstByPrcssIdx(
+				#{prcssIdx}
+			)
+		}
+		]]>
+	</select> 
+	
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.em.equipRepairHistAdmMapper">
+	
+	<!-- 설비수리이력 목록조회 -->
+	<select id="equipRepairHistAdmListAll" resultType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmLst(
+				#{equipIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!--설비수리이력 상세목록 조회 -->
+	<select id="equipRepairHistAdmSel" resultType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 설비수리이력 등록 -->
+	<insert id="equipRepairHistAdmInsert" parameterType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmIUD(
+				'insert',
+				#{idx},
+				#{equipIdx},
+				#{repairCd},
+				#{repairStartDate},
+				#{repairEndDate},
+				#{repairContent},
+				#{repairCompany}, 
+				#{repairCost}, 
+				#{partCost},
+				#{laborCost},
+				#{repairDesc},
+				#{beforeImageFile},
+				#{afterImageFile},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 설비수리이력 수정 -->
+	<insert id="equipRepairHistAdmUpdate" parameterType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmIUD(
+				'update',
+				#{idx},
+				#{equipIdx},
+				#{repairCd},
+				#{repairStartDate},
+				#{repairEndDate},
+				#{repairContent},
+				#{repairCompany}, 
+				#{repairCost}, 
+				#{partCost},
+				#{laborCost},
+				#{repairDesc},
+				#{beforeImageFile},
+				#{afterImageFile},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 설비수리이력 삭제 -->
+	<delete id="equipRepairHistAdmDelete" parameterType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmIUD(
+				'delete',
+				#{idx},
+				#{equipIdx},
+				#{repairCd},
+				#{repairStartDate},
+				#{repairEndDate},
+				#{repairContent},
+				#{repairCompany}, 
+				#{repairCost}, 
+				#{partCost},
+				#{laborCost},
+				#{repairDesc},
+				#{beforeImageFile},
+				#{afterImageFile},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</delete>
+	
+	<!-- 설비관리대장 조회 -->
+	<select id="equipRepairHistAdmStatusLst" resultType="EquipRepairHistAdmVo">
+		<![CDATA[
+		{
+			call sp_em_equipRepairHistAdmStatusLst(
+				#{repairCd},
+				#{useYn},
+				#{startDate},
+				#{endDate}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  	
+<mapper namespace="mes.mappers.sm.menuInfoMapper">
+
+	<!-- ====================================== 메뉴정보관리 ADM ======================================== -->
+	<!-- 메뉴정보관리 ADM 목록조회 -->
+	<select id="menuInfoAdmLst" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmLst(
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴정보관리 ADM 상세조회 -->
+	<select id="menuInfoAdmSel" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴정보관리 ADM 등록 -->
+	<insert id="menuInfoAdmIns" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmIUD(
+				'insert',
+				#{idx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 ADM 수정 -->
+	<insert id="menuInfoAdmUpd" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmIUD(
+				'update',
+				#{idx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 ADM 삭제 -->
+	<insert id="menuInfoAdmDel" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmIUD(
+				'delete',
+				#{idx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 ADM 코드 중복확인 -->
+	<select id="menuInfoAdmDupCheck" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoAdmDupCheck(
+				#{idx},
+				#{menuId}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- ====================================== 메뉴정보관리 DTL ======================================== -->
+	<!-- 메뉴정보관리 DTL 목록조회 -->
+	<select id="menuInfoDtlLst" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlLst(
+				#{menuInfoAdmIdx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴정보관리 DTL 상세조회 -->
+	<select id="menuInfoDtlSel" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlSel(
+				#{idx}
+			)
+		}
+		]]>
+	</select>
+	
+	<!-- 메뉴정보관리 DTL 등록 -->
+	<insert id="menuInfoDtlIns" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlIUD(
+				'insert',
+				#{idx},
+				#{menuInfoAdmIdx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{menuPath},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 DTL 수정 -->
+	<insert id="menuInfoDtlUpd" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlIUD(
+				'update',
+				#{idx},
+				#{menuInfoAdmIdx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{menuPath},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 DTL 삭제 -->
+	<insert id="menuInfoDtlDel" parameterType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlIUD(
+				'delete',
+				#{idx},
+				#{menuInfoAdmIdx},
+				#{menuId},
+				#{menuNm},
+				#{menuOrder},
+				#{menuPath},
+				#{useYn},
+				#{etc1},
+				#{etc2},
+				#{etc3},
+				#{regIdx},
+				#{regDate},
+				#{updIdx},
+				#{updDate}
+			)
+		}
+		]]>
+	</insert>
+	
+	<!-- 메뉴정보관리 DTL 코드 중복확인 -->
+	<select id="menuInfoDtlDupCheck" resultType="MenuInfoVo">
+		<![CDATA[
+		{
+			call sp_sm_menuInfoDtlDupCheck(
+				#{idx},
+				#{menuInfoAdmIdx},
+				#{menuId}
+			)
+		}
+		]]>
+	</select>
+	
+</mapper>
